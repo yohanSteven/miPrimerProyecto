@@ -50,4 +50,6 @@ while True:
 
     #actualiza la pantallla
     pygame.display.flip()
-    clock.tick(200)
+    clock.tick(200)ç
+
+"·jijiha"
