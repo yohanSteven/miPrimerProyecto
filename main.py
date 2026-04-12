@@ -1,55 +1,56 @@
-import sys
+import pygame, sys, time
+from pygame import key
 
-import pygame
 
 pygame.init()
 
-#definir colores
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
-YELLOW = (255, 255, 0)
-
-size = (1000, 700)
-clock = pygame.time.Clock()
-#ventana
+size = (800, 800)
 screen = pygame.display.set_mode(size)
+tiempo = pygame.time.Clock()
 
-#coordenadas
 cord_x = 100
-cord_y = 100
+cord_y = 200
+cord_y2 = 200
 
-#velocidad de la figura
-speedX = 3
-speedY = 5
-
+velocidad_x = 7
+velocidad_y = 7
+velocidad_y2 = 7
 
 while True:
-    for evenet in pygame.event.get():
-        print(evenet.type)
-        if evenet.type == pygame.QUIT:
+    for evento in pygame.event.get():
+        print(evento.type)
+        if evento.type == pygame.QUIT:
             sys.exit()
 
-    #rebote de pantalla
-    if(cord_x > 1000 or cord_x < 0 ):
-        speedX *= -1
-    if (cord_y > 700 or cord_y < 0 ):
-        speedY *= -1
+    screen.fill((255, 255, 255))
+
+    cord_x += velocidad_x
+
+    keys = pygame.key.get_pressed()
+
+    rectangulo = (pygame.draw.rect(screen, (255, 0, 0), (700, cord_y, 50, 100)))
+    # Creacion del jugador 1
+    if keys[pygame.K_UP]:
+        cord_y += velocidad_y
+    elif keys[pygame.K_DOWN]:
+        cord_y -= velocidad_y
+    # limite de recorrido 
+    if cord_y > 700:
+        cord_y = 700
+    if cord_y < 0:
+        cord_y = 0
 
 
-    #relleno de pantalla
-    screen.fill(WHITE )
+    # creacion del jugador 2
+    rectangulo2 = (pygame.draw.rect(screen, (0, 255, 0), (50, cord_y2, 50, 100)))
 
-    cord_x += speedX
-    cord_y += speedY
+    if keys[pygame.K_w]:
+        cord_y2 -= velocidad_y2
+    if keys[pygame.K_s]:
+        cord_y2 += velocidad_y2
 
-    for x in range(100,700,100):
-        pygame.draw.rect(screen, RED, [cord_x,cord_y,50,40])
-
-    #actualiza la pantallla
     pygame.display.flip()
-    clock.tick(200)ç
+    tiempo.tick(60)
 
-"·jijiha"
+
+
